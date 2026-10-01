@@ -1,0 +1,20 @@
+{% extends 'notes/base.html' %}
+
+{% block title %}Sticky Notes Board{% endblock %}
+
+{% block content %}
+<div class="note-grid">
+    {% for note in notes %}
+        <div class="note-card">
+            <h3><a href="{% url 'note_detail' note.pk %}">{{ note.title }}</a></h3>
+            <p>{{ note.content|truncatewords:12 }}</p>
+            <div style="position: absolute; bottom: 15px; left: 20px; right: 20px; display: flex; justify-content: space-between;">
+                <a href="{% url 'note_update' note.pk %}" style="font-weight: bold;">Edit</a>
+                <a href="{% url 'note_delete' note.pk %}" style="font-weight: bold; color: #cc0000 !important;">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p style="margin-top: 20px;">No notes yet! Click "+ New Note" above to add one.</p>
+    {% endfor %}
+</div>
+{% endblock %}
